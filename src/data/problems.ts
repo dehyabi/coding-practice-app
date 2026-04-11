@@ -575,6 +575,225 @@ export class ValidateController {
     ],
     tags: ['Algorithm', 'Stack', 'NestJS', 'Next.js'],
   },
+  // Hard Problems
+  {
+    id: 'merge-k-sorted-lists',
+    title: 'Merge K Sorted Lists',
+    difficulty: 'Hard',
+    description: `You are given an array of k linked-lists, each linked-list is sorted in ascending order.
+
+Merge all the linked-lists into one sorted linked-list and return it.
+
+This is a classic hard problem that tests your understanding of heaps, divide and conquer, and linked list manipulation.`,
+    examples: [
+      {
+        input: 'lists = [[1,4,5],[1,3,4],[2,6]]',
+        output: '[1,1,2,3,4,4,5,6]',
+        explanation: 'The linked-lists are: 1->4->5, 1->3->4, 2->6. Merging them into one sorted list: 1->1->2->3->4->4->5->6',
+      },
+      {
+        input: 'lists = []',
+        output: '[]',
+      },
+      {
+        input: 'lists = [[]]',
+        output: '[]',
+      },
+    ],
+    constraints: [
+      'k == lists.length',
+      '0 <= k <= 10^4',
+      '0 <= lists[i].length <= 500',
+      '-10^4 <= lists[i][j] <= 10^4',
+      'lists[i] is sorted in ascending order',
+    ],
+    starterCode: `interface ListNode {
+  val: number;
+  next: ListNode | null;
+}
+
+function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
+  // Implement efficient O(n log k) solution
+  // Options: Min-heap, divide & conquer, or sequential merge
+  
+}
+
+// Test cases:
+// [[1,4,5],[1,3,4],[2,6]] => [1,1,2,3,4,4,5,6]
+// [] => []
+// [[]] => []`,
+    testCases: [
+      { input: '[[1,4,5],[1,3,4],[2,6]]', expectedOutput: '[1,1,2,3,4,4,5,6]' },
+      { input: '[]', expectedOutput: '[]' },
+      { input: '[[]]', expectedOutput: '[]' },
+      { input: '[[1],[2],[3]]', expectedOutput: '[1,2,3]' },
+    ],
+    tags: ['Linked List', 'Divide and Conquer', 'Heap', 'Merge Sort'],
+  },
+  {
+    id: 'trapping-rain-water',
+    title: 'Trapping Rain Water',
+    difficulty: 'Hard',
+    description: `Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+
+This is a classic interview problem that tests your ability to optimize from O(n^2) to O(n) using two pointers or dynamic programming.`,
+    examples: [
+      {
+        input: 'height = [0,1,0,2,1,0,1,3,2,1,2,1]',
+        output: '6',
+        explanation: 'In this case, 6 units of rain water are being trapped between the bars.',
+      },
+      {
+        input: 'height = [4,2,0,3,2,5]',
+        output: '9',
+      },
+    ],
+    constraints: [
+      'n == height.length',
+      '1 <= n <= 2 * 10^4',
+      '0 <= height[i] <= 10^5',
+    ],
+    starterCode: `function trap(height: number[]): number {
+  // Implement O(n) time and O(1) space solution using two pointers
+  // Or O(n) time and O(n) space using dynamic programming
+  
+}
+
+// Test cases:
+// [0,1,0,2,1,0,1,3,2,1,2,1] => 6
+// [4,2,0,3,2,5] => 9
+// [1,0,1] => 1`,
+    testCases: [
+      { input: '[0,1,0,2,1,0,1,3,2,1,2,1]', expectedOutput: '6' },
+      { input: '[4,2,0,3,2,5]', expectedOutput: '9' },
+      { input: '[1,0,1]', expectedOutput: '1' },
+      { input: '[5,4,1,2]', expectedOutput: '1' },
+    ],
+    tags: ['Array', 'Two Pointers', 'Dynamic Programming', 'Stack'],
+  },
+  {
+    id: 'nestjs-advanced-auth',
+    title: 'Advanced NestJS Auth with Roles & Permissions',
+    difficulty: 'Hard',
+    description: `Implement a complete authentication and authorization system in NestJS with:
+
+1. JWT-based authentication
+2. Role-based access control (RBAC)
+3. Custom decorators for roles
+4. Guard chaining
+5. Permission checks
+
+This tests advanced NestJS patterns used in enterprise applications.`,
+    examples: [
+      {
+        input: 'GET /admin with admin token',
+        output: 'Access granted',
+        explanation: 'Admin role has access to admin routes',
+      },
+      {
+        input: 'GET /admin with user token',
+        output: 'ForbiddenException',
+        explanation: 'User role denied access',
+      },
+    ],
+    constraints: [
+      'Implement JwtAuthGuard and RolesGuard',
+      'Create @Roles() decorator',
+      'Support multiple roles',
+      'Handle token refresh',
+    ],
+    starterCode: `import { SetMetadata } from '@nestjs/common';
+
+// Create roles decorator
+export const ROLES_KEY = 'roles';
+export const Roles = (...roles: string[]) => SetMetadata(ROLES_KEY, roles);
+
+// Implement guards
+@Injectable()
+export class RolesGuard implements CanActivate {
+  // Implement role checking logic
+}
+
+// Usage in controller
+@Controller('admin')
+@UseGuards(JwtAuthGuard, RolesGuard)
+export class AdminController {
+  @Get()
+  @Roles('admin')
+  getAdminData() {
+    // Only admins can access
+  }
+}`,
+    testCases: [
+      { input: 'admin token + /admin', expectedOutput: 'Access granted' },
+      { input: 'user token + /admin', expectedOutput: 'Forbidden' },
+      { input: 'no token + /admin', expectedOutput: 'Unauthorized' },
+    ],
+    tags: ['NestJS', 'Authentication', 'Authorization', 'JWT', 'RBAC'],
+  },
+  {
+    id: 'nextjs-infinite-scroll',
+    title: 'Next.js Infinite Scroll with Virtual Scrolling',
+    difficulty: 'Hard',
+    description: `Implement an infinite scroll component in Next.js with:
+
+1. Server-side pagination
+2. Client-side virtual scrolling
+3. Intersection Observer API
+4. Optimistic UI updates
+5. Proper loading states
+
+This tests advanced React patterns and performance optimization.`,
+    examples: [
+      {
+        input: 'Scroll to bottom',
+        output: 'Next page loads automatically',
+        explanation: 'Intersection Observer triggers fetch',
+      },
+    ],
+    constraints: [
+      'Use IntersectionObserver',
+      'Implement virtual scrolling',
+      'Handle loading states',
+      'Support refetching',
+    ],
+    starterCode: `'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+interface Item {
+  id: string;
+  title: string;
+}
+
+export default function InfiniteScroll() {
+  const [items, setItems] = useState<Item[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const observerRef = useRef<IntersectionObserver>();
+  
+  // Implement infinite scroll logic
+  // 1. Fetch initial data
+  // 2. Setup IntersectionObserver
+  // 3. Load more on scroll
+  // 4. Handle loading states
+  
+  return (
+    <div>
+      {/* Render items */}
+      <div ref={loadMoreRef}>
+        {loading ? 'Loading...' : 'Load more'}
+      </div>
+    </div>
+  );
+}`,
+    testCases: [
+      { input: 'Initial load', expectedOutput: 'First page rendered' },
+      { input: 'Scroll to bottom', expectedOutput: 'Next page loaded' },
+      { input: 'No more pages', expectedOutput: 'End message shown' },
+    ],
+    tags: ['Next.js', 'React', 'Infinite Scroll', 'Performance', 'IntersectionObserver'],
+  },
 ];
 
 export function getProblemById(id: string): Problem | undefined {

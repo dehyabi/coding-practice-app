@@ -10,8 +10,8 @@ export default function Home() {
   const [filter, setFilter] = useState('All');
 
   // Filter problems by mode
-  const fundamentalsIds = ['two-sum', 'valid-parentheses', 'merge-sorted-array', 'max-subarray', 'palindrome-number'];
-  const fullStackIds = ['nestjs-crud-api', 'nextjs-data-fetching', 'jwt-auth-guard', 'api-response-formatter', 'two-sum-nested', 'validate-parentheses-api'];
+  const fundamentalsIds = ['two-sum', 'valid-parentheses', 'merge-sorted-array', 'max-subarray', 'palindrome-number', 'merge-k-sorted-lists', 'trapping-rain-water'];
+  const fullStackIds = ['nestjs-crud-api', 'nextjs-data-fetching', 'jwt-auth-guard', 'api-response-formatter', 'two-sum-nested', 'validate-parentheses-api', 'nestjs-advanced-auth', 'nextjs-infinite-scroll'];
   
   const currentProblems = mode === 'fundamentals'
     ? problems.filter(p => fundamentalsIds.includes(p.id))
