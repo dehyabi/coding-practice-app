@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import ProblemList from '@/components/ProblemList';
 import { problems } from '@/data/problems';
 import { mcqQuestions } from '@/data/fullstack-questions';
@@ -47,6 +48,11 @@ export default function Home() {
               <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
                 Discuss
               </a>
+              <Link
+                href="/about"
+                className="text-sm text-gray-600 hover:text-gray-900">
+                About
+              </Link>
             </nav>
           </div>
         </div>
@@ -187,19 +193,37 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-gray-200 mt-16 py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-          <p>Free coding practice platform for technical interview preparation</p>
-          <p className="mt-1">Built with Next.js, TypeScript & Tailwind CSS • Open Source on GitHub 🚀</p>
-          <p className="mt-2">
-            <a
-              href="https://github.com/dehyabi/coding-practice-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              View on GitHub
-            </a>
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-left text-gray-500 text-sm">
+              <p>Free coding practice platform for technical interview preparation</p>
+              <p className="mt-1">
+                Built with Next.js, TypeScript & Tailwind CSS by{' '}
+                <a
+                  href="/about"
+                  className="text-blue-600 hover:underline font-medium"
+                >
+                  Dehya Qalbi
+                </a>
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/dehyabi/coding-practice-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
+              >
+                ⭐ Star on GitHub
+              </a>
+              <a
+                href="/about"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                About
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
