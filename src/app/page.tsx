@@ -3,13 +3,19 @@
 import { useState } from 'react';
 import ProblemList from '@/components/ProblemList';
 import { problems } from '@/data/problems';
-import { fullStackProblems, mcqQuestions } from '@/data/fullstack-questions';
+import { mcqQuestions } from '@/data/fullstack-questions';
 
 export default function Home() {
   const [mode, setMode] = useState<'fundamentals' | 'fullstack'>('fundamentals');
   const [filter, setFilter] = useState('All');
 
-  const currentProblems = mode === 'fundamentals' ? problems : fullStackProblems;
+  // Filter problems by mode
+  const fundamentalsIds = ['two-sum', 'valid-parentheses', 'merge-sorted-array', 'max-subarray', 'palindrome-number'];
+  const fullStackIds = ['nestjs-crud-api', 'nextjs-data-fetching', 'jwt-auth-guard', 'api-response-formatter', 'two-sum-nested', 'validate-parentheses-api'];
+  
+  const currentProblems = mode === 'fundamentals'
+    ? problems.filter(p => fundamentalsIds.includes(p.id))
+    : problems.filter(p => fullStackIds.includes(p.id));
 
   const filteredProblems =
     filter === 'All'
