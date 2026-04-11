@@ -124,12 +124,25 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <div className="bg-white rounded-lg p-3 sm:p-4 border border-blue-100">
-                <div className="text-xl sm:text-2xl mb-2">🔧</div>
+                <div className="mb-2">
+                  <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10" fill="none">
+                    <path d="M12 0L2.4 5.5V16.5L12 22L21.6 16.5V5.5L12 0Z" fill="#E74C3C"/>
+                    <path d="M12 0V22L21.6 16.5V5.5L12 0Z" fill="#C0392B"/>
+                    <text x="12" y="16" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold" fontFamily="sans-serif">NEST</text>
+                  </svg>
+                </div>
                 <div className="font-semibold text-gray-800 text-sm sm:text-base">NestJS</div>
                 <div className="text-xs text-gray-600">Controllers, Services, Guards, JWT</div>
               </div>
               <div className="bg-white rounded-lg p-3 sm:p-4 border border-indigo-100">
-                <div className="text-xl sm:text-2xl mb-2">⚛️</div>
+                <div className="mb-2">
+                  <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="4" fill="#000000"/>
+                    <circle cx="12" cy="12" r="6" fill="#61DAFB"/>
+                    <ellipse cx="12" cy="12" rx="2" ry="8" stroke="#61DAFB" strokeWidth="2" fill="none" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="2" ry="8" stroke="#61DAFB" strokeWidth="2" fill="none" transform="rotate(150 12 12)"/>
+                  </svg>
+                </div>
                 <div className="font-semibold text-gray-800 text-sm sm:text-base">Next.js</div>
                 <div className="text-xs text-gray-600">App Router, Server Components, Data Fetching</div>
               </div>
