@@ -69,18 +69,18 @@ export default function ProblemPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto">
               <Link
                 href="/"
-                className="text-gray-600 hover:text-gray-900 flex items-center gap-2"
+                className="text-gray-600 hover:text-gray-900 flex items-center gap-1 sm:gap-2 whitespace-nowrap"
               >
                 <span>←</span>
-                <span className="text-sm font-medium">Back</span>
+                <span className="text-xs sm:text-sm font-medium">Back</span>
               </Link>
-              <div className="h-6 w-px bg-gray-200" />
-              <h1 className="text-lg font-semibold text-gray-900">{problem.title}</h1>
+              <div className="h-6 w-px bg-gray-200 hidden sm:block" />
+              <h1 className="text-sm sm:text-lg font-semibold text-gray-900 whitespace-nowrap">{problem.title}</h1>
               <span
-                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
                   problem.difficulty === 'Easy'
                     ? 'bg-emerald-100 text-emerald-700'
                     : problem.difficulty === 'Medium'
@@ -95,16 +95,16 @@ export default function ProblemPage() {
         </div>
       </header>
 
-      {/* Main Content - Split View */}
+      {/* Main Content - Stack on mobile, split on desktop */}
       <div className="max-w-[1600px] mx-auto">
-        <div className="grid grid-cols-2 gap-0" style={{ height: 'calc(100vh - 56px)' }}>
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0" style={{ minHeight: 'calc(100vh - 56px)' }}>
           {/* Left Panel - Problem Description */}
           <div className="border-r border-gray-200 overflow-y-auto bg-white">
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <div className="prose prose-sm max-w-none">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Description</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Description</h2>
                 <div
-                  className="text-gray-700 whitespace-pre-line leading-relaxed"
+                  className="text-gray-700 whitespace-pre-line leading-relaxed text-sm sm:text-base"
                   dangerouslySetInnerHTML={{
                     __html: problem.description
                       .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">$1</code>')
@@ -112,19 +112,19 @@ export default function ProblemPage() {
                   }}
                 />
 
-                <h3 className="text-lg font-bold text-gray-900 mt-8 mb-3">Examples</h3>
-                <div className="space-y-4">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mt-6 sm:mt-8 mb-3">Examples</h3>
+                <div className="space-y-3 sm:space-y-4">
                   {problem.examples.map((example, index) => (
-                    <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <div className="font-medium text-gray-700 mb-2">Example {index + 1}:</div>
-                      <div className="space-y-2 text-sm">
+                    <div key={index} className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                      <div className="font-medium text-gray-700 mb-2 text-sm sm:text-base">Example {index + 1}:</div>
+                      <div className="space-y-2 text-xs sm:text-sm">
                         <div>
                           <span className="text-gray-500">Input:</span>{' '}
-                          <code className="bg-white px-2 py-1 rounded">{example.input}</code>
+                          <code className="bg-white px-2 py-1 rounded block mt-1 overflow-x-auto">{example.input}</code>
                         </div>
                         <div>
                           <span className="text-gray-500">Output:</span>{' '}
-                          <code className="bg-white px-2 py-1 rounded">{example.output}</code>
+                          <code className="bg-white px-2 py-1 rounded block mt-1 overflow-x-auto">{example.output}</code>
                         </div>
                         {example.explanation && (
                           <div>
@@ -137,8 +137,8 @@ export default function ProblemPage() {
                   ))}
                 </div>
 
-                <h3 className="text-lg font-bold text-gray-900 mt-8 mb-3">Constraints</h3>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mt-6 sm:mt-8 mb-3">Constraints</h3>
+                <ul className="list-disc list-inside space-y-1 text-gray-700 text-sm sm:text-base">
                   {problem.constraints.map((constraint, index) => (
                     <li key={index}>{constraint}</li>
                   ))}
@@ -148,7 +148,7 @@ export default function ProblemPage() {
                   {problem.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm"
+                      className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs sm:text-sm"
                     >
                       {tag}
                     </span>
@@ -159,9 +159,9 @@ export default function ProblemPage() {
           </div>
 
           {/* Right Panel - Code Editor & Console */}
-          <div className="flex flex-col" style={{ height: 'calc(100vh - 56px)' }}>
+          <div className="flex flex-col" style={{ minHeight: 'calc(100vh - 56px)' }}>
             {/* Code Editor - Top 60% */}
-            <div className="flex-1 p-4 border-b border-gray-200 overflow-hidden" style={{ flex: '0 0 60%' }}>
+            <div className="flex-1 p-3 sm:p-4 border-b border-gray-200 overflow-hidden" style={{ flex: '0 0 55%' }}>
               <CodeEditor
                 starterCode={problem.starterCode}
                 onCodeChange={setCode}
@@ -170,11 +170,11 @@ export default function ProblemPage() {
               />
             </div>
 
-            {/* Console Output - Bottom 40% */}
-            <div className="flex-1 overflow-hidden bg-white" style={{ flex: '0 0 40%' }}>
+            {/* Console Output - Bottom 45% */}
+            <div className="flex-1 overflow-hidden bg-white" style={{ flex: '0 0 45%' }}>
               <div className="h-full border-t-4 border-gray-200">
-                <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-gray-700">Console</h3>
+                <div className="px-3 sm:px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-semibold text-gray-700">Console</h3>
                   <span className="text-xs text-gray-500">Test Results</span>
                 </div>
                 <ConsoleOutput result={result} isRunning={isRunning} />

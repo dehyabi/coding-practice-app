@@ -29,28 +29,20 @@ export default function Home() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg">
                 💻
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">CodePractice</h1>
-                <p className="text-xs text-gray-500">Free coding interview preparation</p>
+                <h1 className="text-base sm:text-xl font-bold text-gray-900">CodePractice</h1>
+                <p className="text-xs text-gray-500 hidden sm:block">Free coding interview preparation</p>
               </div>
-            </div>
-            <nav className="flex items-center gap-4">
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
-                Problems
-              </a>
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
-                Contests
-              </a>
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-900">
-                Discuss
-              </a>
+            </Link>
+            <nav className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/about"
-                className="text-sm text-gray-600 hover:text-gray-900">
+                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
+              >
                 About
               </Link>
             </nav>
@@ -59,106 +51,105 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Hero Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
             Practice Coding Problems
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Prepare for technical interviews with curated problems from easy to hard
           </p>
         </div>
 
-        {/* Mode Selector */}
-        <div className="mb-8">
-          <div className="flex gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-200 inline-flex">
+        {/* Mode Selector - Full width on mobile */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex gap-2 bg-white p-1.5 sm:p-2 rounded-xl shadow-sm border border-gray-200 w-full sm:w-auto">
             <button
               onClick={() => setMode('fundamentals')}
-              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-3 sm:px-6 py-3 sm:py-3 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 mode === 'fundamentals'
                   ? 'bg-blue-500 text-white shadow-md'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
               📚 Fundamentals
-              <span className="block text-xs opacity-75 mt-1">Arrays, Strings, Algorithms</span>
             </button>
             <button
               onClick={() => setMode('fullstack')}
-              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-3 sm:px-6 py-3 sm:py-3 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 mode === 'fullstack'
                   ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
-              ⚡ Full Stack (NestJS + Next.js)
-              <span className="block text-xs opacity-75 mt-1">Framework-specific + MCQs</span>
+              ⚡ Full Stack
             </button>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="text-3xl font-bold text-blue-600">{currentProblems.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Total Problems</div>
+        {/* Stats - 2 columns on mobile, 4 on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+            <div className="text-2xl sm:text-3xl font-bold text-blue-600">{currentProblems.length}</div>
+            <div className="text-xs sm:text-sm text-gray-500 mt-1">Total Problems</div>
           </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="text-3xl font-bold text-emerald-600">
+          <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+            <div className="text-2xl sm:text-3xl font-bold text-emerald-600">
               {currentProblems.filter((p) => p.difficulty === 'Easy').length}
             </div>
-            <div className="text-sm text-gray-500 mt-1">Easy</div>
+            <div className="text-xs sm:text-sm text-gray-500 mt-1">Easy</div>
           </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="text-3xl font-bold text-amber-600">
+          <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+            <div className="text-2xl sm:text-3xl font-bold text-amber-600">
               {currentProblems.filter((p) => p.difficulty === 'Medium').length}
             </div>
-            <div className="text-sm text-gray-500 mt-1">Medium</div>
+            <div className="text-xs sm:text-sm text-gray-500 mt-1">Medium</div>
           </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="text-3xl font-bold text-rose-600">
+          <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+            <div className="text-2xl sm:text-3xl font-bold text-rose-600">
               {currentProblems.filter((p) => p.difficulty === 'Hard').length}
             </div>
-            <div className="text-sm text-gray-500 mt-1">Hard</div>
+            <div className="text-xs sm:text-sm text-gray-500 mt-1">Hard</div>
           </div>
         </div>
 
+        {/* Full Stack Mode Info */}
         {mode === 'fullstack' && (
-          <div className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">🎯 Full Stack Practice Mode</h3>
-            <p className="text-gray-700 mb-4">
+          <div className="mb-6 sm:mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">🎯 Full Stack Practice Mode</h3>
+            <p className="text-sm sm:text-base text-gray-700 mb-4">
               This mode includes NestJS backend problems, Next.js frontend challenges, and full-stack integration tasks.
               Also includes {mcqQuestions.length} multiple-choice questions for interview prep!
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white rounded-lg p-4 border border-blue-100">
-                <div className="text-2xl mb-2">🔧</div>
-                <div className="font-semibold text-gray-800">NestJS</div>
-                <div className="text-sm text-gray-600">Controllers, Services, Guards, JWT</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-white rounded-lg p-3 sm:p-4 border border-blue-100">
+                <div className="text-xl sm:text-2xl mb-2">🔧</div>
+                <div className="font-semibold text-gray-800 text-sm sm:text-base">NestJS</div>
+                <div className="text-xs text-gray-600">Controllers, Services, Guards, JWT</div>
               </div>
-              <div className="bg-white rounded-lg p-4 border border-indigo-100">
-                <div className="text-2xl mb-2">⚛️</div>
-                <div className="font-semibold text-gray-800">Next.js</div>
-                <div className="text-sm text-gray-600">App Router, Server Components, Data Fetching</div>
+              <div className="bg-white rounded-lg p-3 sm:p-4 border border-indigo-100">
+                <div className="text-xl sm:text-2xl mb-2">⚛️</div>
+                <div className="font-semibold text-gray-800 text-sm sm:text-base">Next.js</div>
+                <div className="text-xs text-gray-600">App Router, Server Components, Data Fetching</div>
               </div>
-              <div className="bg-white rounded-lg p-4 border border-purple-100">
-                <div className="text-2xl mb-2">📝</div>
-                <div className="font-semibold text-gray-800">MCQs</div>
-                <div className="text-sm text-gray-600">{mcqQuestions.length} practice questions</div>
+              <div className="bg-white rounded-lg p-3 sm:p-4 border border-purple-100">
+                <div className="text-xl sm:text-2xl mb-2">📝</div>
+                <div className="font-semibold text-gray-800 text-sm sm:text-base">MCQs</div>
+                <div className="text-xs text-gray-600">{mcqQuestions.length} practice questions</div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Filter */}
-        <div className="mb-6">
-          <div className="flex gap-2">
+        {/* Filter - Wrap on mobile */}
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-wrap gap-2">
             {['All', 'Easy', 'Medium', 'Hard'].map((difficulty) => (
               <button
                 key={difficulty}
                 onClick={() => setFilter(difficulty)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                   filter === difficulty
                     ? 'bg-blue-500 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
@@ -175,10 +166,10 @@ export default function Home() {
 
         {/* MCQ Section for Full Stack Mode */}
         {mode === 'fullstack' && (
-          <div className="mt-12">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">📝 Multiple Choice Practice</h3>
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <p className="text-gray-600 mb-4">
+          <div className="mt-8 sm:mt-12">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">📝 Multiple Choice Practice</h3>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+              <p className="text-sm sm:text-base text-gray-600 mb-4">
                 Test your knowledge with {mcqQuestions.length} questions covering JavaScript, TypeScript, NestJS, Next.js, and API design.
               </p>
               <div className="space-y-4">
@@ -199,29 +190,29 @@ export default function Home() {
               <p>Free coding practice platform for technical interview preparation</p>
               <p className="mt-1">
                 Built with Next.js, TypeScript & Tailwind CSS by{' '}
-                <a
+                <Link
                   href="/about"
                   className="text-blue-600 hover:underline font-medium"
                 >
                   Dehya Qalbi
-                </a>
+                </Link>
               </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <a
                 href="https://github.com/dehyabi/coding-practice-app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
+                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
               >
                 ⭐ Star on GitHub
               </a>
-              <a
+              <Link
                 href="/about"
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
               >
                 About
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -241,8 +232,8 @@ function MCQCard({ question }: { question: typeof mcqQuestions[0] }) {
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-      <p className="font-medium text-gray-900 mb-4">{question.question}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+      <p className="font-medium text-gray-900 mb-4 text-sm sm:text-base">{question.question}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
         {question.options.map((option, idx) => {
           const isSelected = selectedAnswer === idx;
           const isCorrect = idx === question.correct;
