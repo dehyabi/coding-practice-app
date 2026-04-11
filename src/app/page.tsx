@@ -208,36 +208,85 @@ export default function Home() {
 
 function MCQCard({ question }: { question: typeof mcqQuestions[0] }) {
   const [showAnswer, setShowAnswer] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
+  const handleSelect = (idx: number) => {
+    setSelectedAnswer(idx);
+    setShowAnswer(true);
+  };
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-      <div className="flex items-start justify-between mb-3">
-        <p className="font-medium text-gray-900 flex-1 pr-4">{question.question}</p>
-        <button
-          onClick={() => setShowAnswer(!showAnswer)}
-          className="px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
-        >
-          {showAnswer ? 'Hide Answer' : 'Show Answer'}
-        </button>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
-        {question.options.map((option, idx) => (
-          <div
-            key={idx}
-            className={`px-3 py-2 rounded text-sm ${
-              showAnswer && idx === question.correct
-                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                : 'bg-gray-50 text-gray-700'
-            }`}
-          >
-            {String.fromCharCode(65 + idx)}. {option}
-          </div>
-        ))}
+      <p className="font-medium text-gray-900 mb-4">{question.question}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+        {question.options.map((option, idx) => {
+          const isSelected = selectedAnswer === idx;
+          const isCorrect = idx === question.correct;
+          const showResult = showAnswer;
+
+          let bgColor = 'bg-gray-50 hover:bg-gray-100';
+          let borderColor = 'border-gray-200';
+          let textColor = 'text-gray-700';
+
+          if (showResult) {
+            if (isCorrect) {
+              bgColor = 'bg-emerald-50';
+              borderColor = 'border-emerald-300';
+              textColor = 'text-emerald-800';
+            } else if (isSelected && !isCorrect) {
+              bgColor = 'bg-rose-50';
+              borderColor = 'border-rose-300';
+              textColor = 'text-rose-800';
+            }
+          }
+
+          return (
+            <button
+              key={idx}
+              onClick={() => handleSelect(idx)}
+              disabled={showAnswer}
+              className={`w-full text-left px-4 py-3 rounded-lg border-2 text-sm font-medium transition-all ${bgColor} ${borderColor} ${textColor}
+                ${!showAnswer ? 'cursor-pointer hover:shadow-sm hover:-translate-y-0.5' : 'cursor-default'}
+                ${isSelected ? 'ring-2 ring-offset-2 ' + (isCorrect ? 'ring-emerald-500' : 'ring-rose-500') : ''}
+              `}
+            >
+              <span className="font-semibold mr-2">{String.fromCharCode(65 + idx)}.</span>
+              {option}
+              {showResult && isCorrect && (
+                <span className="float-right text-emerald-600">✓ Correct</span>
+              )}
+              {showResult && isSelected && !isCorrect && (
+                <span className="float-right text-rose-600">✗ Wrong</span>
+              )}
+            </button>
+          );
+        })}
       </div>
       {showAnswer && (
-        <div className="bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-800">
-          <strong>Explanation:</strong> {question.explanation}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">
+              {selectedAnswer === question.correct ? '✅' : '💡'}
+            </span>
+            <strong className="text-blue-900">
+              {selectedAnswer === question.correct ? 'Correct!' : 'Explanation:'}
+            </strong>
+          </div>
+          <p className="text-blue-800 text-sm">{question.explanation}</p>
+          {selectedAnswer !== question.correct && (
+            <p className="text-blue-700 text-sm mt-2">
+              <strong>Correct answer:</strong> {String.fromCharCode(65 + question.correct)}. {question.options[question.correct]}
+            </p>
+          )}
         </div>
+      )}
+      {!showAnswer && (
+        <button
+          onClick={() => setShowAnswer(true)}
+          className="px-4 py-2 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+        >
+          Skip & Show Answer
+        </button>
       )}
     </div>
   );
