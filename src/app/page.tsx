@@ -24,7 +24,7 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">CodePractice</h1>
-                <p className="text-xs text-gray-500">Prepare for your coding interviews</p>
+                <p className="text-xs text-gray-500">Free coding interview preparation</p>
               </div>
             </div>
             <nav className="flex items-center gap-4">
@@ -106,8 +106,18 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-gray-200 mt-16 py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-          <p>Built for Zazmic Inc coding test preparation</p>
-          <p className="mt-1">Practice makes perfect! 🚀</p>
+          <p>Free coding practice platform for technical interview preparation</p>
+          <p className="mt-1">Built with Next.js, TypeScript & Tailwind CSS • Open Source on GitHub 🚀</p>
+          <p className="mt-2">
+            <a
+              href="https://github.com/dehyabi/coding-practice-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              View on GitHub
+            </a>
+          </p>
         </div>
       </footer>
     </div>

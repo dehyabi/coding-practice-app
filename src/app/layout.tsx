@@ -5,11 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'CodePractice - Prepare for Coding Interviews',
-  description: 'Practice coding problems for technical interviews. HackerRank-style platform for preparation.',
-  icons: {
-    icon: '/favicon.svg',
-  },
+  title: 'CodePractice - Free Coding Interview Preparation',
+  description: 'Free open-source platform for practicing coding interview problems. HackerRank-style interface with real-time test execution.',
 };
 
 export default function RootLayout({
