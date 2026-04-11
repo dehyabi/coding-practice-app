@@ -3,14 +3,18 @@
 import { useState } from 'react';
 import ProblemList from '@/components/ProblemList';
 import { problems } from '@/data/problems';
+import { fullStackProblems, mcqQuestions } from '@/data/fullstack-questions';
 
 export default function Home() {
+  const [mode, setMode] = useState<'fundamentals' | 'fullstack'>('fundamentals');
   const [filter, setFilter] = useState('All');
+
+  const currentProblems = mode === 'fundamentals' ? problems : fullStackProblems;
 
   const filteredProblems =
     filter === 'All'
-      ? problems
-      : problems.filter((p) => p.difficulty === filter);
+      ? currentProblems
+      : currentProblems.filter((p) => p.difficulty === filter);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
@@ -54,31 +58,86 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Mode Selector */}
+        <div className="mb-8">
+          <div className="flex gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-200 inline-flex">
+            <button
+              onClick={() => setMode('fundamentals')}
+              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+                mode === 'fundamentals'
+                  ? 'bg-blue-500 text-white shadow-md'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              📚 Fundamentals
+              <span className="block text-xs opacity-75 mt-1">Arrays, Strings, Algorithms</span>
+            </button>
+            <button
+              onClick={() => setMode('fullstack')}
+              className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+                mode === 'fullstack'
+                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              ⚡ Full Stack (NestJS + Next.js)
+              <span className="block text-xs opacity-75 mt-1">Framework-specific + MCQs</span>
+            </button>
+          </div>
+        </div>
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <div className="text-3xl font-bold text-blue-600">{problems.length}</div>
+            <div className="text-3xl font-bold text-blue-600">{currentProblems.length}</div>
             <div className="text-sm text-gray-500 mt-1">Total Problems</div>
           </div>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
             <div className="text-3xl font-bold text-emerald-600">
-              {problems.filter((p) => p.difficulty === 'Easy').length}
+              {currentProblems.filter((p) => p.difficulty === 'Easy').length}
             </div>
             <div className="text-sm text-gray-500 mt-1">Easy</div>
           </div>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
             <div className="text-3xl font-bold text-amber-600">
-              {problems.filter((p) => p.difficulty === 'Medium').length}
+              {currentProblems.filter((p) => p.difficulty === 'Medium').length}
             </div>
             <div className="text-sm text-gray-500 mt-1">Medium</div>
           </div>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
             <div className="text-3xl font-bold text-rose-600">
-              {problems.filter((p) => p.difficulty === 'Hard').length}
+              {currentProblems.filter((p) => p.difficulty === 'Hard').length}
             </div>
             <div className="text-sm text-gray-500 mt-1">Hard</div>
           </div>
         </div>
+
+        {mode === 'fullstack' && (
+          <div className="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">🎯 Full Stack Practice Mode</h3>
+            <p className="text-gray-700 mb-4">
+              This mode includes NestJS backend problems, Next.js frontend challenges, and full-stack integration tasks.
+              Also includes {mcqQuestions.length} multiple-choice questions for interview prep!
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white rounded-lg p-4 border border-blue-100">
+                <div className="text-2xl mb-2">🔧</div>
+                <div className="font-semibold text-gray-800">NestJS</div>
+                <div className="text-sm text-gray-600">Controllers, Services, Guards, JWT</div>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-indigo-100">
+                <div className="text-2xl mb-2">⚛️</div>
+                <div className="font-semibold text-gray-800">Next.js</div>
+                <div className="text-sm text-gray-600">App Router, Server Components, Data Fetching</div>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-purple-100">
+                <div className="text-2xl mb-2">📝</div>
+                <div className="font-semibold text-gray-800">MCQs</div>
+                <div className="text-sm text-gray-600">{mcqQuestions.length} practice questions</div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Filter */}
         <div className="mb-6">
@@ -101,6 +160,23 @@ export default function Home() {
 
         {/* Problem List */}
         <ProblemList problems={filteredProblems} />
+
+        {/* MCQ Section for Full Stack Mode */}
+        {mode === 'fullstack' && (
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">📝 Multiple Choice Practice</h3>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <p className="text-gray-600 mb-4">
+                Test your knowledge with {mcqQuestions.length} questions covering JavaScript, TypeScript, NestJS, Next.js, and API design.
+              </p>
+              <div className="space-y-4">
+                {mcqQuestions.map((q) => (
+                  <MCQCard key={q.id} question={q} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
@@ -120,6 +196,43 @@ export default function Home() {
           </p>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function MCQCard({ question }: { question: typeof mcqQuestions[0] }) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  return (
+    <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+      <div className="flex items-start justify-between mb-3">
+        <p className="font-medium text-gray-900 flex-1 pr-4">{question.question}</p>
+        <button
+          onClick={() => setShowAnswer(!showAnswer)}
+          className="px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+        >
+          {showAnswer ? 'Hide Answer' : 'Show Answer'}
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
+        {question.options.map((option, idx) => (
+          <div
+            key={idx}
+            className={`px-3 py-2 rounded text-sm ${
+              showAnswer && idx === question.correct
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                : 'bg-gray-50 text-gray-700'
+            }`}
+          >
+            {String.fromCharCode(65 + idx)}. {option}
+          </div>
+        ))}
+      </div>
+      {showAnswer && (
+        <div className="bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-800">
+          <strong>Explanation:</strong> {question.explanation}
+        </div>
+      )}
     </div>
   );
 }
