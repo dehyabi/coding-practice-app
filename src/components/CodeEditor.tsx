@@ -35,9 +35,9 @@ export default function CodeEditor({
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">Solution.tsx</span>
-          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">
-            TypeScript
+          <span className="text-sm font-medium text-gray-700">solution.js</span>
+          <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 text-xs rounded">
+            JavaScript (Node.js)
           </span>
         </div>
         <div className="flex gap-2">
