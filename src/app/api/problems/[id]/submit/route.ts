@@ -93,52 +93,75 @@ function normalizeOutput(output: string): string {
 
 // Execute user code safely
 async function executeCode(code: string, input: string, problemId: string): Promise<string> {
-  // Create a sandbox-like environment
-  const consoleOutput: string[] = [];
+  const output: string[] = [];
   
-  const customConsole = {
-    log: (...args: unknown[]) => {
-      consoleOutput.push(args.map(arg => JSON.stringify(arg)).join(' '));
-    },
-    error: (...args: unknown[]) => {
-      consoleOutput.push('ERROR: ' + args.map(arg => JSON.stringify(arg)).join(' '));
+  // Create isolated execution context
+  const context = {
+    console: {
+      log: (...args: unknown[]) => {
+        output.push(args.map(arg => JSON.stringify(arg)).join(' '));
+      },
     },
   };
 
-  // Wrap the code to capture output
-  const wrappedCode = `
-    (function() {
-      const console = {
-        log: (...args) => {
-          __output__.push(args.map(arg => JSON.stringify(arg)).join(' '));
-        },
-        error: (...args) => {
-          __output__.push('ERROR: ' + args.map(arg => JSON.stringify(arg)).join(' '));
-        }
-      };
-      
-      try {
-        ${code}
-      } catch (e) {
-        __output__.push('Runtime Error: ' + e.message);
-      }
-      
-      return __output__;
-    })()
-  `;
+  try {
+    // First, execute user's code to define the function
+    const userCode = `${code}`;
+    
+    // Create function from user code
+    const runUserCode = new Function('console', userCode);
+    runUserCode(context.console);
+    
+    // Now call the function with test input
+    // Parse the input to extract function arguments
+    const testCall = getTestCall(problemId, input);
+    
+    // Execute the test call and capture output
+    const runTest = new Function('console', `
+      ${userCode}
+      console.log(${testCall});
+    `);
+    
+    runTest(context.console);
+    
+    return output.length > 0 ? output[output.length - 1] : '';
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : 'Unknown error');
+  }
+}
 
-  // Execute in a VM-like context (simplified for browser/server compatibility)
-  // In production, use a proper sandbox like vm2 or isolated-vm
-  const output: string[] = [];
-  
-  // Create function with isolated scope
-  const executeFunction = new Function('__output__', wrappedCode);
-  const result = executeFunction(output);
-  
-  // Return last console.log output or the result
-  if (output.length > 0) {
-    return output[output.length - 1];
+// Get the function call string based on problem type
+function getTestCall(problemId: string, input: string): string {
+  // For two-sum: input is "[2,7,11,15], 9" -> call twoSum([2,7,11,15], 9)
+  if (problemId === 'two-sum') {
+    return `twoSum(${input})`;
   }
   
-  return '';
+  // For valid-parentheses: input is '"()[]{}"' -> call isValid("()[]{}")
+  if (problemId === 'valid-parentheses') {
+    return `isValid(${input})`;
+  }
+  
+  // For merge-sorted-array
+  if (problemId === 'merge-sorted-array') {
+    return `merge(${input})`;
+  }
+  
+  // For max-subarray
+  if (problemId === 'max-subarray') {
+    return `maxSubArray(${input})`;
+  }
+  
+  // For palindrome-number
+  if (problemId === 'palindrome-number') {
+    return `isPalindrome(${input})`;
+  }
+  
+  // For trapping-rain-water
+  if (problemId === 'trapping-rain-water') {
+    return `trap(${input})`;
+  }
+  
+  // Default: try to call first function found in code
+  return `main(${input})`;
 }
