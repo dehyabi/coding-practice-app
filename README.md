@@ -2,6 +2,8 @@
 
 A free, open-source coding interview preparation platform built with Next.js. Practice coding problems with a HackerRank-style interface.
 
+🔗 **Live Demo:** [https://dehyabi-coding-practice.vercel.app/](https://dehyabi-coding-practice.vercel.app/)
+
 ![CodePractice](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwind-css&logoColor=white)
