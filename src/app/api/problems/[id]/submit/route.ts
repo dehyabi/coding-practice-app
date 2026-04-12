@@ -105,23 +105,17 @@ async function executeCode(code: string, input: string, problemId: string): Prom
   };
 
   try {
-    // First, execute user's code to define the function
-    const userCode = `${code}`;
-    
-    // Create function from user code
-    const runUserCode = new Function('console', userCode);
-    runUserCode(context.console);
-    
-    // Now call the function with test input
-    // Parse the input to extract function arguments
+    // Get the function call for this problem
     const testCall = getTestCall(problemId, input);
     
-    // Execute the test call and capture output
-    const runTest = new Function('console', `
-      ${userCode}
+    // Combine user code with test call in single execution
+    const fullCode = `
+      ${code}
       console.log(${testCall});
-    `);
+    `;
     
+    // Execute in single context so function is available
+    const runTest = new Function('console', fullCode);
     runTest(context.console);
     
     return output.length > 0 ? output[output.length - 1] : '';
