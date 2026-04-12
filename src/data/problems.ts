@@ -32,7 +32,7 @@ You can return the answer in any order.`,
       '-10^9 <= target <= 10^9',
       'Only one valid answer exists.',
     ],
-    starterCode: `function twoSum(nums: number[], target: number): number[] {
+    starterCode: `function twoSum(nums, target) {
   // Write your solution here
   
 }
@@ -79,7 +79,7 @@ An input string is valid if:
       '1 <= s.length <= 10^4',
       's consists of parentheses only \'()[]{}\'',
     ],
-    starterCode: `function isValid(s: string): boolean {
+    starterCode: `function isValid(s) {
   // Write your solution here
   
 }
@@ -122,7 +122,7 @@ console.log(isValid("([])")); // true`,
       '1 <= m + n <= 200',
       '-10^9 <= nums1[i], nums2[j] <= 10^9',
     ],
-    starterCode: `function merge(nums1: number[], m: number, nums2: number[], n: number): number[] {
+    starterCode: `function merge(nums1, m, nums2, n) {
   // Write your solution here
   
 }
@@ -164,7 +164,7 @@ The test cases are generated so that the answer will fit in a **32-bit integer**
       '1 <= nums.length <= 10^5',
       '-10^4 <= nums[i] <= 10^4',
     ],
-    starterCode: `function maxSubArray(nums: number[]): number {
+    starterCode: `function maxSubArray(nums) {
   // Write your solution here
   
 }
@@ -209,7 +209,7 @@ An integer is a **palindrome** when it reads the same backward as forward.`,
     constraints: [
       '-2^31 <= x <= 2^31 - 1',
     ],
-    starterCode: `function isPalindrome(x: number): boolean {
+    starterCode: `function isPalindrome(x) {
   // Write your solution here
   
 }
@@ -492,7 +492,7 @@ This tests your ability to connect frontend and backend.
     ],
     starterCode: `// Backend: NestJS Service
 export class TwoSumService {
-  findTwoSum(nums: number[], target: number): number[] {
+  findTwoSum(nums, target): number[] {
     // Implement O(n) solution
   }
 }
@@ -503,7 +503,7 @@ export class TwoSumService {
 export function TwoSumSolver() {
   const [result, setResult] = useState<number[]>([]);
   
-  const solve = async (nums: number[], target: number) => {
+  const solve = async (nums, target) => {
     // Call API and display result
   };
   
@@ -548,8 +548,8 @@ Tests algorithmic thinking + full-stack implementation.`,
       'Real-time validation on frontend',
     ],
     starterCode: `// Algorithm
-function isValid(s: string): boolean {
-  const stack: string[] = [];
+function isValid(s) {
+  const stack;
   const map: Record<string, string> = {
     ')': '(',
     '}': '{',
@@ -653,7 +653,7 @@ This is a classic interview problem that tests your ability to optimize from O(n
       '1 <= n <= 2 * 10^4',
       '0 <= height[i] <= 10^5',
     ],
-    starterCode: `function trap(height: number[]): number {
+    starterCode: `function trap(height) {
   // Implement O(n) time and O(1) space solution using two pointers
   // Or O(n) time and O(n) space using dynamic programming
   
