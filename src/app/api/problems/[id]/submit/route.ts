@@ -104,10 +104,10 @@ async function executeCode(code: string, input: string, problemId: string): Prom
     },
   };
 
+  // Get the function call for this problem
+  const testCall = getTestCall(problemId, input);
+  
   try {
-    // Get the function call for this problem
-    const testCall = getTestCall(problemId, input);
-    
     // Combine user code with test call in single execution
     const fullCode = `
       ${code}
@@ -120,7 +120,8 @@ async function executeCode(code: string, input: string, problemId: string): Prom
     
     return output.length > 0 ? output[output.length - 1] : '';
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : 'Unknown error');
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error(`${errorMsg}`);
   }
 }
 
