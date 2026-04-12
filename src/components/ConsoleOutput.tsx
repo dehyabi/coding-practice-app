@@ -23,7 +23,7 @@ export default function ConsoleOutput({ result, isRunning }: ConsoleOutputProps)
     return (
       <div className="h-full flex items-center justify-center text-gray-400">
         <div className="text-center">
-          <div className="text-4xl mb-2">📊</div>
+          <div className="text-4xl mb-2">▶️</div>
           <p>Run your code to see results</p>
         </div>
       </div>
