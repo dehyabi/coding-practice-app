@@ -160,8 +160,8 @@ export default function ProblemPage() {
 
           {/* Right Panel - Code Editor & Console */}
           <div className="flex flex-col" style={{ minHeight: 'calc(100vh - 56px)' }}>
-            {/* Code Editor - Top 60% */}
-            <div className="flex-1 p-3 sm:p-4 border-b border-gray-200 overflow-hidden" style={{ flex: '0 0 55%' }}>
+            {/* Code Editor - Top 60% on desktop, 70% on mobile */}
+            <div className="flex-1 p-3 sm:p-4 border-b border-gray-200 overflow-hidden" style={{ flex: '0 0 65%' }}>
               <CodeEditor
                 starterCode={problem.starterCode}
                 onCodeChange={setCode}
@@ -170,14 +170,16 @@ export default function ProblemPage() {
               />
             </div>
 
-            {/* Console Output - Bottom 45% */}
-            <div className="flex-1 overflow-hidden bg-white" style={{ flex: '0 0 45%' }}>
-              <div className="h-full border-t-4 border-gray-200">
-                <div className="px-3 sm:px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+            {/* Console Output - Bottom 35% on desktop, 35% on mobile */}
+            <div className="flex-1 overflow-hidden bg-white" style={{ flex: '0 0 35%' }}>
+              <div className="h-full border-t-4 border-gray-200 flex flex-col">
+                <div className="px-3 sm:px-4 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
                   <h3 className="text-xs sm:text-sm font-semibold text-gray-700">Console</h3>
                   <span className="text-xs text-gray-500">Test Results</span>
                 </div>
-                <ConsoleOutput result={result} isRunning={isRunning} />
+                <div className="flex-1 overflow-auto p-3 sm:p-4">
+                  <ConsoleOutput result={result} isRunning={isRunning} />
+                </div>
               </div>
             </div>
           </div>
