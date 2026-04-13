@@ -109,10 +109,16 @@ async function executeCode(code: string, input: string, problemId: string): Prom
   
   try {
     // Combine user code with test call in single execution
-    const fullCode = `
-      ${code}
-      console.log(${testCall});
-    `;
+    // For merge-k-sorted-lists, testCall already contains the full code
+    const fullCode = problemId === 'merge-k-sorted-lists' 
+      ? `
+        ${code}
+        console.log(${testCall});
+      `
+      : `
+        ${code}
+        console.log(${testCall});
+      `;
     
     // Execute in single context so function is available
     const runTest = new Function('console', fullCode);
@@ -159,7 +165,36 @@ function getTestCall(problemId: string, input: string): string {
   
   // For merge-k-sorted-lists
   if (problemId === 'merge-k-sorted-lists') {
-    return `mergeKLists(${input})`;
+    // Helper functions to convert arrays to linked lists and vice versa
+    const helperCode = `
+      // Convert array to linked list
+      function arrayToList(arr) {
+        if (!arr || arr.length === 0) return null;
+        const head = { val: arr[0], next: null };
+        let current = head;
+        for (let i = 1; i < arr.length; i++) {
+          current.next = { val: arr[i], next: null };
+          current = current.next;
+        }
+        return head;
+      }
+      
+      // Convert linked list to array
+      function listToArray(head) {
+        const result = [];
+        while (head) {
+          result.push(head.val);
+          head = head.next;
+        }
+        return result;
+      }
+      
+      // Convert input arrays to linked lists
+      const inputLists = ${input}.map(arr => arrayToList(arr));
+      const result = mergeKLists(inputLists);
+      listToArray(result);
+    `;
+    return helperCode;
   }
   
   // Default: try to call first function found in code
