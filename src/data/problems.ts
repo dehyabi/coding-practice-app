@@ -607,12 +607,13 @@ This is a classic hard problem that tests your understanding of heaps, divide an
       '-10^4 <= lists[i][j] <= 10^4',
       'lists[i] is sorted in ascending order',
     ],
-    starterCode: `interface ListNode {
-  val: number;
-  next: ListNode | null;
-}
+    starterCode: `// Definition for singly-linked list node
+// function ListNode(val, next) {
+//   this.val = val === undefined ? 0 : val;
+//   this.next = next === undefined ? null : next;
+// }
 
-function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
+function mergeKLists(lists) {
   // Implement efficient O(n log k) solution
   // Options: Min-heap, divide & conquer, or sequential merge
   
