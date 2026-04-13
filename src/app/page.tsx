@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ProblemList from '@/components/ProblemList';
 import { problems } from '@/data/problems';
@@ -9,6 +9,13 @@ import { mcqQuestions } from '@/data/fullstack-questions';
 export default function Home() {
   const [mode, setMode] = useState<'fundamentals' | 'fullstack'>('fundamentals');
   const [filter, setFilter] = useState('All');
+  const [shuffledMcqs, setShuffledMcqs] = useState<typeof mcqQuestions>([]);
+
+  // Shuffle MCQs on mount
+  useEffect(() => {
+    const shuffled = [...mcqQuestions].sort(() => Math.random() - 0.5);
+    setShuffledMcqs(shuffled);
+  }, []);
 
   // Filter problems by mode
   const fundamentalsIds = ['two-sum', 'valid-parentheses', 'merge-sorted-array', 'max-subarray', 'palindrome-number', 'merge-k-sorted-lists', 'trapping-rain-water'];
@@ -185,7 +192,7 @@ export default function Home() {
                 Test your knowledge with {mcqQuestions.length} questions covering JavaScript, TypeScript, NestJS, Next.js, and API design.
               </p>
               <div className="space-y-4">
-                {mcqQuestions.map((q) => (
+                {shuffledMcqs.map((q) => (
                   <MCQCard key={q.id} question={q} />
                 ))}
               </div>
