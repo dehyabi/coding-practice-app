@@ -157,6 +157,11 @@ function getTestCall(problemId: string, input: string): string {
     return `trap(${input})`;
   }
   
+  // For merge-k-sorted-lists
+  if (problemId === 'merge-k-sorted-lists') {
+    return `mergeKLists(${input})`;
+  }
+  
   // Default: try to call first function found in code
   return `main(${input})`;
 }
