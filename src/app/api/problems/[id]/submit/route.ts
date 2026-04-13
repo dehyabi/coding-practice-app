@@ -109,16 +109,20 @@ async function executeCode(code: string, input: string, problemId: string): Prom
   
   try {
     // Combine user code with test call in single execution
-    // For merge-k-sorted-lists, testCall already contains the full code
-    const fullCode = problemId === 'merge-k-sorted-lists' 
-      ? `
+    let fullCode;
+    
+    // For merge-k-sorted-lists, testCall already includes helper functions
+    if (problemId === 'merge-k-sorted-lists') {
+      fullCode = `
         ${code}
-        console.log(${testCall});
-      `
-      : `
+        ${testCall}
+      `;
+    } else {
+      fullCode = `
         ${code}
         console.log(${testCall});
       `;
+    }
     
     // Execute in single context so function is available
     const runTest = new Function('console', fullCode);
@@ -166,7 +170,7 @@ function getTestCall(problemId: string, input: string): string {
   // For merge-k-sorted-lists
   if (problemId === 'merge-k-sorted-lists') {
     // Helper functions to convert arrays to linked lists and vice versa
-    const helperCode = `
+    return `
       // Convert array to linked list
       function arrayToList(arr) {
         if (!arr || arr.length === 0) return null;
@@ -192,9 +196,8 @@ function getTestCall(problemId: string, input: string): string {
       // Convert input arrays to linked lists
       const inputLists = ${input}.map(arr => arrayToList(arr));
       const result = mergeKLists(inputLists);
-      listToArray(result);
+      console.log(JSON.stringify(listToArray(result)));
     `;
-    return helperCode;
   }
   
   // Default: try to call first function found in code
