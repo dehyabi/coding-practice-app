@@ -196,7 +196,7 @@ function getTestCall(problemId: string, input: string): string {
       // Convert input arrays to linked lists
       const inputLists = ${input}.map(arr => arrayToList(arr));
       const result = mergeKLists(inputLists);
-      console.log(JSON.stringify(listToArray(result)));
+      console.log(listToArray(result));
     `;
   }
   
